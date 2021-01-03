@@ -1,14 +1,17 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, Suspense } from 'react';
 
 //Components
-import { Radio, Row } from 'antd';
-import { Canvas, useFrame, MeshProps } from 'react-three-fiber';
-import type { Mesh } from 'three';
+import { Radio, Space, Button, Drawer } from 'antd';
+import { Canvas, useFrame, MeshProps, useLoader } from 'react-three-fiber';
+import { Mesh, Vector3 } from 'three';
 import { OrbitControls } from '@react-three/drei';
+import { useGLTF } from 'drei';
+import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
+
+import HouseModel from './Components/HouseModel';
 
 //Styles
 import './App.css';
-
 //Types
 import { RadioChangeEvent } from 'antd/lib/radio';
 
@@ -46,39 +49,74 @@ const Box: React.FC<MeshProps> = (props) => {
   );
 };
 
+const Tokyo: React.FC = () => {
+  const gltf = useLoader(GLTFLoader, './assets/3d models/LittlestTokyo.glb');
+  return <primitive object={gltf.scene} position={[0, 0, 0]} />;
+};
+
 function App() {
   const [viewIndex, setViewIndex] = useState<number>(0);
+  const [drawerVisible, setDrawerVisible] = useState<boolean>(false);
 
   return (
     <>
       <div id="container">
         <div id="menu-container">
-          <Radio.Group
-            value={viewIndex}
-            buttonStyle="solid"
-            defaultValue={viewIndex.toString()}
-            size="large"
-            onChange={(e) => setViewIndex(e.target.value)}
+          <Space>
+            <Radio.Group
+              value={viewIndex}
+              buttonStyle="solid"
+              defaultValue={viewIndex.toString()}
+              size="large"
+              onChange={(e) => setViewIndex(e.target.value)}
+            >
+              {vantage_point_names.map((buttonLabel, i) => (
+                <Radio.Button value={i} key={i}>
+                  {buttonLabel}
+                </Radio.Button>
+              ))}
+            </Radio.Group>
+
+            <Button
+              type="primary"
+              size="large"
+              onClick={() => setDrawerVisible(true)}
+            >
+              Cameras
+            </Button>
+          </Space>
+
+          <Drawer
+            visible={drawerVisible}
+            onClose={() => setDrawerVisible(false)}
+            placement="bottom"
           >
-            {vantage_point_names.map((buttonLabel, i) => (
-              <Radio.Button value={i} key={i}>
-                {buttonLabel}
-              </Radio.Button>
-            ))}
-          </Radio.Group>
+            <p>Sample Text</p>
+          </Drawer>
         </div>
 
         <div id="canvas-container">
           <Canvas
             shadowMap
             colorManagement
-            camera={{ position: [-5, -2, 10], fov: 90 }}
+            camera={{
+              position: [0, 0, 555],
+              fov: 90,
+              near: 10,
+              far: 100000,
+            }}
           >
             <ambientLight />
             <pointLight position={[10, 10, 10]} />
-            <Box position={[-1.2, 0, 0]} />
-            <Box position={[1.2, 0, 0]} />
-            <OrbitControls />
+            <Suspense fallback={<Box />}>
+              <HouseModel />
+            </Suspense>
+            <OrbitControls
+              minPolarAngle={0}
+              maxPolarAngle={(3 * Math.PI) / 5}
+              maxDistance={600}
+              minDistance={300}
+            />
           </Canvas>
         </div>
       </div>
