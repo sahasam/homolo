@@ -5,10 +5,10 @@ import { Radio, Space, Button, Drawer } from 'antd';
 import { Canvas, useFrame, MeshProps, useLoader } from 'react-three-fiber';
 import { Mesh, Vector3 } from 'three';
 import { OrbitControls } from '@react-three/drei';
-import { useGLTF } from 'drei';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
 import HouseModel from './Components/HouseModel';
+import CameraDrawer from './Components/CameraDrawer';
 
 //Styles
 import './App.css';
@@ -56,7 +56,6 @@ const Tokyo: React.FC = () => {
 
 function App() {
   const [viewIndex, setViewIndex] = useState<number>(0);
-  const [drawerVisible, setDrawerVisible] = useState<boolean>(false);
 
   return (
     <>
@@ -76,23 +75,8 @@ function App() {
                 </Radio.Button>
               ))}
             </Radio.Group>
-
-            <Button
-              type="primary"
-              size="large"
-              onClick={() => setDrawerVisible(true)}
-            >
-              Cameras
-            </Button>
+            <CameraDrawer />
           </Space>
-
-          <Drawer
-            visible={drawerVisible}
-            onClose={() => setDrawerVisible(false)}
-            placement="bottom"
-          >
-            <p>Sample Text</p>
-          </Drawer>
         </div>
 
         <div id="canvas-container">
