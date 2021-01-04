@@ -3,7 +3,7 @@ import React, { useState, useRef, Suspense } from 'react';
 //Components
 import { Radio, Space, Button, Drawer } from 'antd';
 import { Canvas, useFrame, MeshProps, useLoader } from 'react-three-fiber';
-import { Mesh, Vector3 } from 'three';
+import { Mesh } from 'three';
 import { OrbitControls } from '@react-three/drei';
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader';
 
@@ -86,7 +86,7 @@ function App() {
             camera={{
               position: [0, 0, 555],
               fov: 90,
-              near: 10,
+              near: 100,
               far: 100000,
             }}
           >
