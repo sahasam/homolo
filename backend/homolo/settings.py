@@ -38,6 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'camera.apps.CameraConfig',
+    'stream.apps.StreamConfig'
 ]
 
 MIDDLEWARE = [
@@ -76,8 +79,12 @@ WSGI_APPLICATION = 'homolo.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'homolo',
+        'USER': 'homoloapp',
+        'PASSWORD': '.Y:Bnh2?5,{oppRf3"7ysw$66((G@so-o>l_A7DRR}({k.\n3D',
+        'HOST': '172.17.0.2',
+        'PORT': '3306',
     }
 }
 
