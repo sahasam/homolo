@@ -8,3 +8,4 @@ numpy==1.19.5
 opencv-python==4.5.1.48
 pytz==2020.5
 sqlparse==0.4.1
+uWSGI>=2.0.18,<2.1
