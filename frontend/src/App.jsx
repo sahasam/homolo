@@ -37,9 +37,7 @@ function App() {
           </div>
         </div>
 
-        <div id="canvas-container">
-          <ThreeScene />
-        </div>
+        <div id="canvas-container">{/* <ThreeScene /> */}</div>
       </div>
     </>
   );

@@ -10,8 +10,9 @@ class FrameConversionException(Exception):
 
 
 class LiveWebCam(object):
-    def __init__(self):
-        self.video = cv2.VideoCapture(0)
+    def __init__(self, user="", password="", ip=""):
+        print(f"rtsp://{user}:{password}@{ip}/cam/realmonitor?channel=1&subtype=1")
+        self.video = cv2.VideoCapture(f"rtsp://{user}:{password}@{ip}/cam/realmonitor?channel=1&subtype=1")
 
     def __del__(self):
         self.video.release()

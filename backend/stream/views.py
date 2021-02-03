@@ -1,3 +1,5 @@
+import os
+
 from django.http import Http404
 from django.http.response import StreamingHttpResponse
 
@@ -18,4 +20,4 @@ class CameraView(APIView):
     Create HTTPStream for ip camera frames
     """
     def get(self, request, pk, format=None):
-        return StreamingHttpResponse(gen(LiveWebCam()), content_type='multipart/x-mixed-replace; boundary=frame')
+        return StreamingHttpResponse(gen(LiveWebCam(user=os.environ['CAM_USER'], password=os.environ['CAM_PSWD'], ip="192.168.55.210")), content_type='multipart/x-mixed-replace; boundary=frame')

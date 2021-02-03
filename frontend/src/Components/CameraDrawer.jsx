@@ -1,100 +1,40 @@
-import React, { useState } from 'react';
-import { Drawer, Divider, Button, Space, Table, Tag } from 'antd';
+import React, { useEffect, useState } from "react";
+import { Drawer, Divider, Button, Space, Table, Tag } from "antd";
+import axios from "axios";
 
 const { Column } = Table;
 
-const data = [
-  {
-    key: '1',
-    name: 'Camera 1',
-    ip: '192.168.55.5',
-    location: 'South Wall',
-    tags: ['Movement', 'Live'],
-    actions: ['Live', 'History'],
-  },
-  {
-    key: '2',
-    name: 'Camera 2',
-    ip: '192.168.55.5',
-    location: 'North Wall',
-    tags: ['Movement', 'Live'],
-    actions: ['Live', 'History'],
-  },
-  {
-    key: '3',
-    name: 'Camera 3',
-    ip: '192.168.55.5',
-    location: 'East Wall',
-    tags: ['Movement', 'Live'],
-    actions: ['Live', 'History'],
-  },
-  {
-    key: '4',
-    name: 'Camera 4',
-    ip: '192.168.55.5',
-    location: 'West Wall',
-    tags: ['Disabled'],
-    actions: ['Enable', 'History'],
-  },
-  {
-    key: '5',
-    name: 'Camera 5',
-    ip: '192.168.55.5',
-    location: 'Side Gate',
-    tags: ['Disconnected'],
-    actions: ['History'],
-  },
-  {
-    key: '6',
-    name: 'Camera 6',
-    ip: '192.168.55.5',
-    location: 'Front Yard',
-    tags: ['Movement', 'Live'],
-    actions: ['Live', 'History'],
-  },
-  {
-    key: '7',
-    name: 'Camera 7',
-    ip: '192.168.55.5',
-    location: 'Backyard',
-    tags: ['Movement', 'Live'],
-    actions: ['Live', 'History'],
-  },
-];
-
 const CamerasTable = () => {
+  const [cameras, setCameras] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const result = await axios.get("http://localhost:8000/camera");
+
+        setCameras(result.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
   return (
-    <Table pagination={false} dataSource={data}>
-      <Column title="Camera Name" key="name" dataIndex="name" />
-      <Column title="IP" key="ip" dataIndex="ip" />
-      <Column title="Location" key="location" dataIndex="location" />
+    <Table pagination={false} dataSource={cameras}>
+      <Column title="Camera Name" key="cam_id" dataIndex="cam_name" />
+      <Column title="IP" key="cam_id" dataIndex="cam_ip" />
+      <Column title="Location" key="cam_id" dataIndex="location" />
       <Column
-        title="tags"
-        key="tags"
-        dataIndex="tags"
-        render={(tags) => (
-          <>
-            {tags.map((tag) => {
-              let color = tag.length > 5 ? 'geekblue' : 'green';
-              if (tag === 'Disabled' || tag === 'Disconnected') {
-                color = 'volcano';
-              }
-              return (
-                <Tag color={color} key={tag}>
-                  {tag.toUpperCase()}
-                </Tag>
-              );
-            })}
-          </>
-        )}
-      />
-      <Column
-        title=""
-        key="actions"
-        render={(text, record) => {
+        title="Status"
+        key="cam_status"
+        data_index="cam_status"
+        render={(entry) => {
+          const status = entry.status;
           return (
             <Space>
-              {record.tags.includes('Disabled') ? (
+              {status === 0 ? (
                 <Button type="link" danger>
                   Enable
                 </Button>
@@ -103,13 +43,7 @@ const CamerasTable = () => {
                   Disable
                 </Button>
               )}
-              <Button
-                type="link"
-                disabled={
-                  record.tags.includes('Disabled') ||
-                  record.tags.includes('Disconnected')
-                }
-              >
+              <Button type="link" disabled={status === 0}>
                 View
               </Button>
               <Button type="link">History</Button>
@@ -121,7 +55,26 @@ const CamerasTable = () => {
   );
 };
 
-const CameraDrawer = ({ number, cameraLabels }) => {
+const MovementTable = (props) => {
+  const [data, setData] = useState([]);
+
+  const url = `http://localhost:8000/camera/${props.cam_id}`;
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const req = await axios.get(url);
+        setData(req.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchData();
+  }, []);
+};
+
+const CameraDrawer = () => {
   const [visible, setVisible] = useState(false);
 
   return (

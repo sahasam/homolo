@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'corsheaders',
     'camera.apps.CameraConfig',
     'stream.apps.StreamConfig'
 ]
@@ -46,6 +47,7 @@ INSTALLED_APPS = [
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -81,9 +83,9 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'homolo',
-        'USER': 'homoloapp',
-        'PASSWORD': '.Y:Bnh2?5,{oppRf3"7ysw$66((G@so-o>l_A7DRR}({k.\n3D',
-        'HOST': '172.17.0.2',
+        'USER': 'homolodb',
+        'PASSWORD': '~VuXdrzXtm6Xd&bcb2Te%jQTrZf8%g^',
+        'HOST': '172.17.0.3',
         'PORT': '3306',
     }
 }
@@ -106,6 +108,11 @@ AUTH_PASSWORD_VALIDATORS = [
         'NAME': 'django.contrib.auth.password_validation.NumericPasswordValidator',
     },
 ]
+
+CORS_ALLOWED_ORIGINS = [
+    "http://localhost:3000"
+]
+
 
 
 # Internationalization

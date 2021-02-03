@@ -1,0 +1,24 @@
+version: '3.7'
+
+services:
+    db:
+        image: mysql/mysql-server:latest
+        environment:
+            - MYSQL_ROOT_PASSWORD=root_password
+            - MYSQL_USER=sahas
+            - MYSQL_PASSWORD=sahas_password
+            - MYSQL_DATABASE=homolo
+    web:
+        build:
+            context: ./backend/
+        ports:
+            - "8000:8000"
+        command: python manage.py runserver 0.0.0.0:8000
+        environment:
+            - DEBUG=1
+        env_file:
+            - ./backend/.env
+        devices:
+            - /dev/video0:/dev/video0
+        depends_on:
+            - db
