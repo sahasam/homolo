@@ -8,10 +8,8 @@ class FrameConversionException(Exception):
     def __init__(self, message="Could not convert cv2 frame to jpeg"):
         self.message = message
 
-
 class LiveWebCam(object):
     def __init__(self, user="", password="", ip=""):
-        print(f"rtsp://{user}:{password}@{ip}/cam/realmonitor?channel=1&subtype=1")
         self.video = cv2.VideoCapture(f"rtsp://{user}:{password}@{ip}/cam/realmonitor?channel=1&subtype=1")
 
     def __del__(self):
