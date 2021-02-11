@@ -1,0 +1,65 @@
+#cameras-container {
+  background-color: #465058;
+  display: grid;
+  padding: 1em 1em 1em 1em;
+  grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+  grid-gap: 1em;
+}
+
+#cameras-container input {
+  width: 100%;
+  border-radius: 1rem;
+}
+
+.stream-button:hover {
+  opacity: 0.75;
+}
+
+.bottom-drawer {
+  width: 100%;
+  background: #465058;
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  height: 40%;
+  z-index: 200;
+  box-shadow: 10px 0px 20px rgba(0,0,0,0.5);
+  transform: translateY(100%);
+  transition: transform 0.3s ease-out;
+}
+
+.bottom-drawer.open {
+  transform: translateY(0);
+}
+
+@keyframes fade-in {
+  from {background-color: rgba(0,0,0,0);}
+  to {background-color: rgba(0,0,0,0.3);}
+}
+
+.backdrop {
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0,0,0,0.3);
+  z-index: 100;
+  top: 0;
+  right: 0;
+  animation-name: fade-in;
+  animation-duration: 0.3s;
+}
+
+#drawer-header {
+  display: flex;
+  background-color: #9caca6;
+  box-shadow: 4px 0px 0px rgba(0,0,0,0.5);
+  color: #f5f5f1;
+  padding: 10px 10px 0px 10px;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid #aaaaaa;
+}
+
+#drawer-header h1 {
+  padding-top: 5px;
+}

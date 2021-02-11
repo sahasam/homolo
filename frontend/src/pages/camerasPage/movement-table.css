@@ -1,0 +1,21 @@
+table {
+  width: 100%;
+  border-collapse: collapse;
+
+  border-radius: 1rem;
+}
+
+th, td {
+  border-bottom: 1px solid #aaaaaa;
+}
+
+table td, table th, table tr {
+  text-align: center;
+  vertical-align: center;
+  background-color: #F5F5F1;
+}
+
+
+table tr:hover td {
+  background-color: #555555;
+}
