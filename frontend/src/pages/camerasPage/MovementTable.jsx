@@ -44,15 +44,15 @@ const TableData = (props) => {
         ? null
         : props.movements.map((entry) => (
             <tr>
-              <td>12345</td>
-              <td>Timestamp</td>
-              <td>home/files/12345.jpg</td>
+              <td>{entry.movement_id}</td>
+              <td>{entry.time_stamp}</td>
+              <td>{entry.file_name}</td>
               <td>
                 <button class="action-button">action</button>
                 <button class="delete-button">delete</button>
                 <button class="view-button">view</button>
               </td>
-              <td>Y</td>
+              <td>{entry.person_detected === 1 ? 'Y' : 'N'}</td>
             </tr>
           ))}
     </>
