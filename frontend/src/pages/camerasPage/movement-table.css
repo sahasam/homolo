@@ -18,4 +18,5 @@ table td, table th, table tr {
 
 table tr:hover td {
   background-color: #555555;
+  color: #F5F5F1;
 }
