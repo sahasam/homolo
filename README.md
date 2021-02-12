@@ -14,6 +14,3 @@ Images:
 ![](res/img02.png)
 
 Development still in progress.
-
-
-
