@@ -1,4 +1,6 @@
 import React, { useState, useEffect } from "react";
+import { FaTv, FaTrash } from 'react-icons/fa';
+import { AiOutlineStar } from 'react-icons/ai';
 import axios from "axios";
 
 //styles
@@ -44,15 +46,15 @@ const TableData = (props) => {
         ? null
         : props.movements.map((entry) => (
             <tr>
-              <td>{entry.movement_id}</td>
-              <td>{entry.time_stamp}</td>
-              <td>{entry.file_name}</td>
+              <td class="flipping">{entry.movement_id}</td>
+              <td class="flipping">{entry.time_stamp}</td>
+              <td class="flipping">{entry.file_name}</td>
               <td>
-                <button class="action-button">action</button>
-                <button class="delete-button">delete</button>
-                <button class="view-button">view</button>
+                <button class="action-button" class="primary"><FaTv /></button>
+                <button class="delete-button" class="danger"><FaTrash /></button>
+                <button class="view-button" class="primary"><AiOutlineStar /></button>
               </td>
-              <td>{entry.person_detected === 1 ? 'Y' : 'N'}</td>
+              <td class="flipping">{entry.person_detected === 1 ? 'Y' : 'N'}</td>
             </tr>
           ))}
     </>

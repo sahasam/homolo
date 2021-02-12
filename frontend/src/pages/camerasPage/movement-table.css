@@ -9,14 +9,20 @@ th, td {
   border-bottom: 1px solid #aaaaaa;
 }
 
+tr:nth-child(even) td{
+  background-color: #aaaaaa;
+}
+
 table td, table th, table tr {
   text-align: center;
   vertical-align: center;
   background-color: #F5F5F1;
 }
 
-
 table tr:hover td {
   background-color: #555555;
+}
+
+table tr:hover .flipping {
   color: #F5F5F1;
 }
