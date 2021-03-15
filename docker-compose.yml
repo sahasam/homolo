@@ -2,23 +2,25 @@ version: '3.7'
 
 services:
     db:
-        image: mysql/mysql-server:latest
-        environment:
-            - MYSQL_ROOT_PASSWORD=root_password
-            - MYSQL_USER=sahas
-            - MYSQL_PASSWORD=sahas_password
-            - MYSQL_DATABASE=homolo
-    web:
         build:
-            context: ./backend/
-        ports:
-            - "8000:8000"
-        command: python manage.py runserver 0.0.0.0:8000
+            context: ./database/
         environment:
-            - DEBUG=1
-        env_file:
-            - ./backend/.env
-        devices:
-            - /dev/video0:/dev/video0
-        depends_on:
-            - db
+            - POSTGRES_PASSWORD=password
+            - POSTGRES_USER=postgres
+            - POSTGRES_DB=postgres
+        restart: always
+        expose:
+          - 5432
+    web:
+      environment:
+        - DATABASE_URL=postgres://postgres:password@db/postgres
+        - DJANGO_MANAGEPY_MIGRATE=on
+      env_file:
+        - ./backend/.env
+      build:
+        context: ./backend/
+      links:
+        - db:db
+      ports:
+        - 8000:8000
+

@@ -1,5 +1,4 @@
-FROM mysql/mysql-server:8.0
-
+FROM postgres 
 LABEL maintainer="munamalasahas@gmail.com"
 
-ENV MYSQL_DATABASE homolodb
+COPY init.sql /docker-entrypoint-initdb.d/

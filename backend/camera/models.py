@@ -14,7 +14,7 @@ class Camera(models.Model):
 
 class Movement(models.Model):
     movement_id = models.IntegerField(primary_key=True)
-    camera = models.ForeignKey(to=Camera, related_name='movements', on_delete=models.CASCADE)
+    camera = models.ForeignKey(to=Camera, related_name='movements', default=None, null=True, on_delete=models.CASCADE)
     time_stamp = models.DateTimeField(blank=True, null=True)
     person_detected = models.IntegerField(blank=True, null=True)
     file_name = models.CharField(max_length=100, blank=True, null=True)

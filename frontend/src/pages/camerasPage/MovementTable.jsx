@@ -5,7 +5,7 @@ import axios from "axios";
 
 //styles
 import "./movement-table.css";
-const url = "http://localhost:8000";
+const url = "http://172.20.0.3:8000";
 
 export const MovementTable = (props) => {
   const [cameraData, setCameraData] = React.useState({});

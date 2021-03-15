@@ -5,7 +5,7 @@ import axios from "axios";
 
 // styles
 import "./cameras-page.css";
-const url = "http://localhost:8000";
+const url = "http://172.20.0.3:8000";
 
 export const CamerasPage = (props) => {
   const [cameras, setCameras] = useState([]);
