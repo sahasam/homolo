@@ -5,7 +5,6 @@ import axios from "axios";
 
 // styles
 import "./cameras-page.css";
-const url = "http://172.20.0.3:8000";
 
 export const CamerasPage = (props) => {
   const [cameras, setCameras] = useState([]);
@@ -15,7 +14,7 @@ export const CamerasPage = (props) => {
   useEffect(() => {
     const getCameras = async () => {
       try {
-        const res = await axios.get(`${url}/camera/`);
+        const res = await axios.get(`http://172.20.0.3:8000/camera/`);
 
         setCameras(res.data);
       } catch (error) {
@@ -55,7 +54,7 @@ const CamerasView = (props) => {
         key={entry.cam_id}
         id={entry.cam_id}
         class="stream-button"
-        src={`${url}/stream/${entry.cam_id}`}
+        src={`http://172.20.0.3:8000/stream/${entry.cam_id}`}
       />
     );
   });

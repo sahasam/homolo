@@ -52,7 +52,7 @@ EXPOSE 8000
 ENV DJANGO_SETTINGS_MODULE=homolo.deploy
 
 # Call collectstatic (customize the following line with the minimal environment variables needed for manage.py to run):
-RUN DATABASE_URL=''  SECRET='' python manage.py collectstatic --noinput 
+RUN DATABASE_URL=''  SECRET='scoy^$hpz2_f28w3h-es=1$x@bs334bx(1(g3^o=1s1_!1d7q3' python manage.py collectstatic --noinput 
 
 # Tell uWSGI where to find your wsgi file (change this):
 ENV UWSGI_WSGI_FILE=homolo/wsgi.py

@@ -16,5 +16,8 @@ DATABASES = {
 ALLOWED_HOSTS = ['172.20.0.3']
 
 CORS_ALLOWED_ORIGINS = [
-    "http://localhost:3000"
+    "http://localhost:3000",
+    "http://web:3000",
+    "http://172.20.0.4:3000",
+    "http://172.20.0.3:3000"
 ]

@@ -23,4 +23,13 @@ services:
         - db:db
       ports:
         - 8000:8000
+    front:
+      build:
+        context: ./frontend/
+      environment:
+        - API_URL=https://web:3000/
+      links:
+        - web:web
+      ports:
+        - 3000:3000
 
