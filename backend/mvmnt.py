@@ -23,30 +23,40 @@ def get_camera_id(folder_name):
     if(folder_name.lower() == "main entrance"): return 2
     if(folder_name.lower() == "back yard"): return 3
     if(folder_name.lower() == "drive way"): return 4
+    if(folder_name.lower() == "front yard"): return 5
 
     return -1
 
-
-
-
-if __name__ == "__main__":
-    # list of folders with saved movement details.
-    # i.e. folders to check
-    folder_list = list(filter(lambda x: x[0] != "@", os.listdir(FILE_FOLDER)))
-
+def generate_movement_records(folder_list):
+    """generate the list of movements based on files already stored in NFS"""
+    records = []
     camera_id = 1
     for folder in folder_list:
-        print(f"\n{folder} camera_id:{get_camera_id(folder)}")
+        camera_id = get_camera_id(folder)
         days = filter(lambda x: x[-1] == "M", os.listdir(os.path.join(FILE_FOLDER, folder)))
         for d in days:
-            year = d[0:4]
-            month = d[4:6]
-            day = d[6:8]
-            locale_time = d[8:10]
-            print(f"{month}/{day}/{year} {locale_time}")
-
             for file in os.listdir(os.path.join(FILE_FOLDER, folder, d)):
-                print(file)
+                try:
+                    time = datetime.datetime.strptime(''.join(file.split('-')[1:3]), "%Y%m%d%H%M%S")
+                    records.append((camera_id, time, file))
+                except ValueError as e:
+                    #something wrong with file name format. Skip
+                    print(f"{file} cannot be converted. Please rename or ignore")
+
+    return records
+
+
+
+if __name__ == "__main__": # list of folders with saved movement details.
+    # i.e. folders to check
+    try:
+        folder_list = list(filter(lambda x: x[0] != "@", os.listdir(FILE_FOLDER)))
+    except OSError as e:
+        print(f"Could not access NFS at {FILE_FOLDER}. Mount to this directory or change the constant")
+
+
+    print(generate_movement_records(folder_list))
+
 
 
 
